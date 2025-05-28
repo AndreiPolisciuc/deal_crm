@@ -1,6 +1,7 @@
 import { create } from 'zustand';
 import axios from 'axios';
 import {TypeOfWork, TypeOfWorkInput, TypeOfWorkInputEdit} from "../types/TypeOfWork";
+import {SERVER_LINK} from "../globals";
 
 interface TypeOfWorkState {
     typesOfWork: TypeOfWork[];
@@ -16,7 +17,7 @@ interface TypeOfWorkState {
 
 }
 
-const apiLinkToServer = 'http://localhost:4000/api/type_of_work';
+const apiLinkToServer = SERVER_LINK+'/api/type_of_work';
 
 export const useTypeOfWorkStore = create<TypeOfWorkState>((set, get) => ({
     typesOfWork: [],

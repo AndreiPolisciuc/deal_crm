@@ -1,6 +1,7 @@
 import { create } from 'zustand';
 import axios from 'axios';
 import { PlanInformation, PlanInformationInputAdd } from "../types/PlanInformation";
+import {SERVER_LINK} from "../globals";
 
 interface PlanInformationState {
     planInformations: PlanInformation[];
@@ -16,8 +17,8 @@ interface PlanInformationState {
     deletePlanInformation: (id:number, plan_id:number) => Promise<void>;
 }
 
-const apiLinkToServer = 'http://localhost:4000/api/plan-information';
-const apiUploadLinkToServer = 'http://localhost:4000/api/upload';
+const apiLinkToServer = SERVER_LINK+'/api/plan-information';
+const apiUploadLinkToServer = SERVER_LINK+'/api/upload';
 
 export const usePlanInformationStore = create<PlanInformationState>((set, get) => ({
     planInformations: [],

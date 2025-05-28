@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { Button, Table } from "react-bootstrap";
-import { useTypeOfWorkStore } from '../../store/useTypeOfWorkStore';
+import { useStatusStore } from '../../store/useStatusStore';
 import DeleteModal from "./DeleteModal";
 import EditSidePanel from "./EditSidePanel";
 
 const List = () => {
     // Destructure state and action from company store
-    const { typesOfWork, fetchTypesOfWork } = useTypeOfWorkStore();
+    const { statuses, fetchStatuses } = useStatusStore();
 
     // ID used for editing or deleting a company
     const [id, setId] = useState(0);
@@ -35,7 +35,7 @@ const List = () => {
 
     // Fetch company data on component mount
     useEffect(() => {
-        fetchTypesOfWork();
+        fetchStatuses();
     }, []);
 
     return (
@@ -50,23 +50,23 @@ const List = () => {
                 </tr>
                 </thead>
                 <tbody>
-                {typesOfWork.map((typeOfWork) => (
+                {statuses.map((status) => (
                     // Apply gray style to inactive companies
-                    <tr className={!typeOfWork.active ? 'table-secondary text-muted' : ''} key={typeOfWork.id}>
-                        <td>{typeOfWork.id}</td>
+                    <tr className={!status.active ? 'table-secondary text-muted' : ''} key={status.id}>
+                        <td>{status.id}</td>
                         <td className="text-start">
-                            {typeOfWork.name}
+                            {status.name}
                         </td>
                         {/* Format the creation date */}
-                        <td className="w-25">{typeOfWork.sort}</td>
+                        <td className="w-25">{status.sort}</td>
                         <td>
                             {/* Edit button opens side panel */}
-                            <Button variant="secondary" className="m-1" onClick={() => handleShowEditSidePanel(typeOfWork.id)}>
+                            <Button variant="secondary" className="m-1" onClick={() => handleShowEditSidePanel(status.id)}>
                                 <i className="bi bi-pencil"></i>
                             </Button>
 
                             {/* Delete button opens modal */}
-                            <Button variant="danger" className="m-1" onClick={() => handleShowDeleteModal(typeOfWork.id)}>
+                            <Button variant="danger" className="m-1" onClick={() => handleShowDeleteModal(status.id)}>
                                 <i className="bi bi-trash"></i>
                             </Button>
                         </td>

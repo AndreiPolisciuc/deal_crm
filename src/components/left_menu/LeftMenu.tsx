@@ -35,7 +35,7 @@ const LeftMenu = ({show, setShow}:LeftMenuProps) => {
         // { label: 'Contacts', icon: <PersonLinesFill />, link: '#' },
         { label: 'Companies', icon: <Building />, link: '/companies' },
         { label: 'Types of work', icon: <Briefcase />, link: '/type-of-work' },
-        // { label: 'Tasks', icon: <CheckSquare />, link: '#' },
+        { label: 'Statuses', icon: <CheckSquare />, link: '/statuses/' },
         // { label: 'Reports', icon: <BarChart />, link: '#' },
         // { label: 'Settings', icon: <Gear />, link: '#' },
     ];

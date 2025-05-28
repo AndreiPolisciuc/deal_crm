@@ -15,6 +15,7 @@ import {Alert} from "react-bootstrap";
 import FullPageLoader from "./components/FullPageLoader";
 import DetailPlan from "./pages/company/DetailPlan";
 import {useStore} from "./store/useStore";
+import Statuses from "./pages/Statuses";
 
 
 function App() {
@@ -43,6 +44,7 @@ function App() {
                         <Route path="/" element={<Dashboard/>}/>
                         <Route path="/companies" element={<ListCompanies/>}/>
                         <Route path="/type-of-work" element={<TypesOfWork/>}/>
+                        <Route path="/statuses" element={<Statuses/>}/>
                         <Route path="/companies/:id" element={<DetailCompany/>}/>
                         <Route path="/companies/:company_id/:id" element={<DetailConstruction/>}/>
                         <Route path="/companies/:company_id/:construction_id/:id" element={<DetailPlan />} />

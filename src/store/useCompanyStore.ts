@@ -1,6 +1,7 @@
 import { create } from 'zustand';
 import axios from 'axios';
 import {Company, CompanyInput, CompanyInputEdit} from '../types/Company';
+import {SERVER_LINK} from "../globals";
 
 interface CompanyState {
     companies: Company[];
@@ -15,7 +16,7 @@ interface CompanyState {
 
 }
 
-const apiLinkToServer = 'http://localhost:4000/api/company';
+const apiLinkToServer = SERVER_LINK+'/api/company';
 
 export const useCompanyStore = create<CompanyState>((set, get) => ({
     companies: [],
