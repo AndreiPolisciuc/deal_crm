@@ -13,7 +13,7 @@ const ListCompanies = () => {
         <>
             <Container>
                 <h1>Companies Page</h1>
-                <BreadcrumbsComp />
+                <BreadcrumbsComp openPageName ={"Companies Page"}/>
                 <div className={'d-flex justify-content-end'}>
                     <Button className={"mb-3"} variant="primary" onClick={handleShow}>
                         <i className="me-2 bi bi-plus-circle"></i>

@@ -50,7 +50,7 @@ const DetailConstruction = () => {
                     Edit
                 </Button>
                 <hr></hr>
-                <BreadcrumbsComp/>
+                <BreadcrumbsComp openPageName ={construction.name}/>
                 {!construction.active &&
                     <Alert key={'secondary'} variant={'secondary'}>
                         Not active!

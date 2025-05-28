@@ -1,7 +1,11 @@
 import { Breadcrumb } from 'react-bootstrap';
 import { Link, useLocation } from 'react-router-dom';
 
-const BreadcrumbsComp = () => {
+type BreadcrumbsCompProps ={
+    openPageName : string
+}
+
+const BreadcrumbsComp = ({openPageName}:BreadcrumbsCompProps) => {
     const location = useLocation();
     const paths = location.pathname.split('/').filter(Boolean);
 
@@ -17,7 +21,7 @@ const BreadcrumbsComp = () => {
 
                 return isLast ? (
                     <Breadcrumb.Item active key={path}>
-                        {decodeURIComponent(segment)}
+                        {openPageName}
                     </Breadcrumb.Item>
                 ) : (
                     <Breadcrumb.Item linkAs={Link} linkProps={{ to: path }} key={path}>

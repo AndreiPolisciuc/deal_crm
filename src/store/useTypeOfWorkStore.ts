@@ -8,6 +8,7 @@ interface TypeOfWorkState {
     loading: boolean;
     error: string | null;
     fetchTypesOfWork: () => Promise<void>;
+    fetchActiveTypesOfWork: () => Promise<void>;
     fetchTypeOfWork: (id:number) => Promise<void>;
     addTypeOfWork: (typeOfWork: TypeOfWorkInput) => Promise<void>;
     deleteTypeOfWork: (id: number) => Promise<void>;
@@ -46,6 +47,15 @@ export const useTypeOfWorkStore = create<TypeOfWorkState>((set, get) => ({
         set({ loading: true, error: null });
         try {
             const res = await axios.get<TypeOfWork[]>(apiLinkToServer);
+            set({ typesOfWork: res.data, loading: false });
+        } catch (err: any) {
+            set({ error: err.message, loading: false });
+        }
+    },
+    fetchActiveTypesOfWork: async () => {
+        set({ loading: true, error: null });
+        try {
+            const res = await axios.get<TypeOfWork[]>(apiLinkToServer+"/active");
             set({ typesOfWork: res.data, loading: false });
         } catch (err: any) {
             set({ error: err.message, loading: false });

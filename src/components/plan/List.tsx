@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {usePlanStore} from "../../store/usePlanStore";
 import {Button, Table} from "react-bootstrap";
-import {Link} from "react-router-dom";
+import {Link, useParams} from "react-router-dom";
 import DeleteModal from "./DeleteModal";
 import EditSidePanel from './EditSidePanel';
 
@@ -12,6 +12,8 @@ type PlanTableProps = {
 const List = ({construction_id}:PlanTableProps) => {
     const { plans, fetchPlansInConstruction  } = usePlanStore();
     const [id, setId] = useState(0);
+
+    const { company_id } = useParams<{company_id:string}>();
 
     const [showDeleteModal, setShowDeleteModal] = useState(false);
     const handleCloseDeleteModal = () => {
@@ -58,7 +60,7 @@ const List = ({construction_id}:PlanTableProps) => {
                     <tr className={!plan.active ? 'table-secondary text-muted' : ''} key={plan.id}>
                         <td>{plan.id}</td>
                         <td className="text-start">
-                            <Link to={`/companies/${plan.construction_id}/${plan.id}`}>
+                            <Link to={`/companies/${company_id}/${plan.construction_id}/${plan.id}`}>
                                 {plan.name}
                             </Link>
                         </td>

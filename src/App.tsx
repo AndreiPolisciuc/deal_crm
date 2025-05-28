@@ -12,23 +12,21 @@ import DetailConstruction from "./pages/company/DetailConstruction";
 import TypesOfWork from "./pages/TypesOfWork";
 import {Alert} from "react-bootstrap";
 
-import {useConstructionStore} from "./store/useConstructionStore";
-import {useTypeOfWorkStore} from "./store/useTypeOfWorkStore";
-import {useCompanyStore} from "./store/useCompanyStore";
-import {usePlanStore} from "./store/usePlanStore";
 import FullPageLoader from "./components/FullPageLoader";
+import DetailPlan from "./pages/company/DetailPlan";
+import {useStore} from "./store/useStore";
 
 
 function App() {
     const [show, setShow] = useState(false);
 
-    const {error: errorCompany, loading: loadingCompany} = useCompanyStore();
-    const {error: errorTypeOfWork, loading: loadingTypeOfWork} = useTypeOfWorkStore();
-    const {error: errorConstruction, loading: loadingConstruction} = useConstructionStore();
-    const {error: errorPlan, loading: loadingPlan} = usePlanStore();
 
-    const error = errorTypeOfWork || errorCompany || errorConstruction || errorPlan;
-    const loading = loadingTypeOfWork || loadingCompany || loadingConstruction ||loadingPlan;
+    const { error, loading, clearError } = useStore();
+    const heandleClose =() =>{
+        setShow(false);
+        clearError()
+    }
+    //const loading = loadingTypeOfWork || loadingCompany || loadingConstruction ||loadingPlan ||loadingPlanInformation;
 
     return (
         <>
@@ -37,8 +35,8 @@ function App() {
                 <div className="flex-grow-1">
                     <TopMenu setShow={setShow}/>
 
-                    {error && <Alert variant="danger">
-                        <Alert.Heading>Oh snap! You got an error! Try again later!</Alert.Heading>
+                    {error && <Alert variant="danger" onClose={heandleClose} dismissible>
+                        <Alert.Heading>{error}</Alert.Heading>
                     </Alert>}
 
                     <Routes>
@@ -47,6 +45,7 @@ function App() {
                         <Route path="/type-of-work" element={<TypesOfWork/>}/>
                         <Route path="/companies/:id" element={<DetailCompany/>}/>
                         <Route path="/companies/:company_id/:id" element={<DetailConstruction/>}/>
+                        <Route path="/companies/:company_id/:construction_id/:id" element={<DetailPlan />} />
                     </Routes>
                 </div>
             </div>
