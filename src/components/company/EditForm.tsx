@@ -44,7 +44,7 @@ const EditForm = ({id, handleCloseEditSidePanel}:CompanyEditFormProps) => {
             <Col className="mb-3 text-start ">
                 <Row className="mb-3 text-start ">
                     <Form.Group controlId="validationCustom01">
-                        <Form.Label>Company name</Form.Label>
+                        <Form.Label>Company Name</Form.Label>
                         <Form.Control
                             name="name"
                             required
@@ -71,7 +71,7 @@ const EditForm = ({id, handleCloseEditSidePanel}:CompanyEditFormProps) => {
                 </Row>
                 <Row className="mb-3 text-start">
                     <Form.Group controlId="exampleForm.ControlTextarea1">
-                        <Form.Label >Example textarea</Form.Label>
+                        <Form.Label >Text</Form.Label>
                         <Form.Control
                             className="mb-3"
                             as="textarea"

@@ -10,7 +10,7 @@ type EditFormProps = {
 
 const EditForm = ({id, handleCloseEditSidePanel}:EditFormProps) => {
     const { status, fetchStatus,  updateStatus } = useStatusStore();
-    const [form, setForm] = useState<StatusInputEdit>({id:0, name: '', active:true, sort:500});
+    const [form, setForm] = useState<StatusInputEdit>({id:0, name: '', active:true, sort:500, color:''});
     const [validated, setValidated] = useState(false);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -29,7 +29,7 @@ const EditForm = ({id, handleCloseEditSidePanel}:EditFormProps) => {
         if (data.checkValidity() === false) return;
 
         await updateStatus(form);
-        setForm({id:0, name: '', active: true , sort: 500 });
+        setForm({id:0, name: '', active: true , sort: 500, color:'' });
         handleCloseEditSidePanel()
     };
 
@@ -37,20 +37,32 @@ const EditForm = ({id, handleCloseEditSidePanel}:EditFormProps) => {
         fetchStatus(id);
     }, []);
     useEffect(() => {
-        setForm({id:id, name: status?.name, active:status?.active, sort:status?.sort});
+        setForm({id:id, name: status?.name, color: status?.color, active:status?.active, sort:status?.sort});
     }, [status]);
     return (
         <Form noValidate validated={validated} onSubmit={handleSubmit}>
             <Col className="mb-3 text-start ">
                 <Row className="mb-3 text-start ">
                     <Form.Group controlId="validationCustom01">
-                        <Form.Label>Type of work name*</Form.Label>
+                        <Form.Label>Status Name*</Form.Label>
                         <Form.Control
                             name="name"
                             required
                             type="text"
-                            placeholder="Company Name"
+                            placeholder="Status Name"
                             value={form.name}
+                            onChange={handleChange}
+                        />
+                        <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+                    </Form.Group>
+                </Row>
+                <Row className="mb-3 text-start ">
+                    <Form.Group controlId="validationCustom01">
+                        <Form.Label>Status Color</Form.Label>
+                        <Form.Control
+                            name="color"
+                            type="color"
+                            value={form.color}
                             onChange={handleChange}
                         />
                         <Form.Control.Feedback>Looks good!</Form.Control.Feedback>

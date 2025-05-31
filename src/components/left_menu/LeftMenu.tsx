@@ -43,12 +43,12 @@ const LeftMenu = ({show, setShow}:LeftMenuProps) => {
     return (
         <>
             {/* Desktop sidebar */}
-            <div className="d-none d-md-block sidebar vh-100">
+            <div className="d-none d-md-block sidebar">
                 <div className="px-3 pt-3">
                     <img className={"logo mx-1"} src={"/images/logo-1.jpg"} alt="logo"/>
                 </div>
 
-            <hr></hr>
+                <hr></hr>
                 <Nav className="flex-column">
                     {menuItems.map(({ label, icon, link }) => (
                         <NavLink

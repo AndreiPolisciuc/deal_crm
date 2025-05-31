@@ -52,7 +52,7 @@ const List = () => {
                 <tbody>
                 {statuses.map((status) => (
                     // Apply gray style to inactive companies
-                    <tr className={!status.active ? 'table-secondary text-muted' : ''} key={status.id}>
+                    <tr className={!status.active ? 'table-secondary text-muted' : ''} style={{ '--bs-table-bg': status.color } as React.CSSProperties} key={status.id}>
                         <td>{status.id}</td>
                         <td className="text-start">
                             {status.name}
@@ -66,9 +66,9 @@ const List = () => {
                             </Button>
 
                             {/* Delete button opens modal */}
-                            <Button variant="danger" className="m-1" onClick={() => handleShowDeleteModal(status.id)}>
+                            { (status.id !== 5 && status.id !== 1) && <Button variant="danger" className="m-1" onClick={() => handleShowDeleteModal(status.id)}>
                                 <i className="bi bi-trash"></i>
-                            </Button>
+                            </Button>}
                         </td>
                     </tr>
                 ))}

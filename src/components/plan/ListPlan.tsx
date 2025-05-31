@@ -2,14 +2,14 @@ import React, {useEffect, useState} from 'react';
 import {usePlanStore} from "../../store/usePlanStore";
 import {Button, Table} from "react-bootstrap";
 import {Link, useParams} from "react-router-dom";
-import DeleteModal from "./DeleteModal";
+import DeleteModalPlan from "./DeleteModalPlan";
 import EditSidePanel from './EditSidePanel';
 
 type PlanTableProps = {
     construction_id: number;
 }
 
-const List = ({construction_id}:PlanTableProps) => {
+const ListPlan = ({construction_id}:PlanTableProps) => {
     const { plans, fetchPlansInConstruction  } = usePlanStore();
     const [id, setId] = useState(0);
 
@@ -58,15 +58,15 @@ const List = ({construction_id}:PlanTableProps) => {
                 <tbody>
                 {plans.map((plan) => (
                     <tr className={!plan.active ? 'table-secondary text-muted' : ''} key={plan.id}>
-                        <td>{plan.id}</td>
+                        <td className={"align-middle"}>{plan.id}</td>
                         <td className="text-start">
                             <Link to={`/companies/${company_id}/${plan.construction_id}/${plan.id}`}>
                                 {plan.name}
                             </Link>
                         </td>
 
-                        <td className="w-25">{new Date(plan.created_at).toLocaleString()}</td>
-                        <td>
+                        <td className="align-middle w-25">{new Date(plan.created_at).toLocaleString()}</td>
+                        <td className={"align-middle align-middle"}>
                             {/* Edit button opens side panel */}
                             <Button variant="secondary" className="m-1" onClick={() => handleShowEditSidePanel(plan.id)}>
                                 <i className="bi bi-pencil"></i>
@@ -82,7 +82,7 @@ const List = ({construction_id}:PlanTableProps) => {
 
                 </tbody>
             </Table>
-            <DeleteModal
+            <DeleteModalPlan
                 id={id}
                 construction_id={construction_id}
                 showDeleteModal={showDeleteModal}
@@ -98,4 +98,4 @@ const List = ({construction_id}:PlanTableProps) => {
     );
 };
 
-export default List;
+export default ListPlan;

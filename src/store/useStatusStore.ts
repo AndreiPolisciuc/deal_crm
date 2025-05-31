@@ -28,7 +28,8 @@ export const useStatusStore = create<StatusState>((set, get) => ({
         name:'',
         created_at:'',
         active:true,
-        sort:500
+        sort:500,
+        color:''
     },
 
     fetchStatus: async (id) => {

@@ -8,7 +8,7 @@ type AddFormProps = {
 }
 
 const AddForm = ({handleClose}:AddFormProps) => {
-    const [form, setForm] = useState<StatusInput>({ name: '', sort: 500 });
+    const [form, setForm] = useState<StatusInput>({ name: '', sort: 500, color:'' });
     const [validated, setValidated] = useState(false);
     const addStatus = useStatusStore(state => state.addStatus);
 
@@ -20,7 +20,7 @@ const AddForm = ({handleClose}:AddFormProps) => {
     const handleSubmit = async (e: React.FormEvent) => {
         const data = e.currentTarget as HTMLFormElement;
         e.preventDefault();
-
+        console.log(form)
         if (data.checkValidity() === false) {
             e.preventDefault();
             e.stopPropagation();
@@ -29,7 +29,7 @@ const AddForm = ({handleClose}:AddFormProps) => {
         if (data.checkValidity() === false) return;
 
         await addStatus(form);
-        setForm({ name: '', sort: 500 });
+        setForm({ name: '', sort: 500, color: '' });
         handleClose()
     };
     return (
@@ -44,6 +44,18 @@ const AddForm = ({handleClose}:AddFormProps) => {
                             type="text"
                             placeholder="Status Name"
                             value={form.name}
+                            onChange={handleChange}
+                        />
+                        <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+                    </Form.Group>
+                </Row>
+                <Row className="mb-3 text-start ">
+                    <Form.Group >
+                        <Form.Label>Status Color</Form.Label>
+                        <Form.Control
+                            name="color"
+                            type="color"
+                            value={form.color}
                             onChange={handleChange}
                         />
                         <Form.Control.Feedback>Looks good!</Form.Control.Feedback>

@@ -4,11 +4,13 @@ export interface Status {
     created_at:string;
     active:boolean;
     sort: number;
+    color:string;
 }
 
 export interface StatusInput {
     name: string;
     sort: number;
+    color:string;
 }
 
 export interface StatusInputEdit {
@@ -16,4 +18,5 @@ export interface StatusInputEdit {
     name: string;
     active:boolean;
     sort: number;
+    color:string;
 }

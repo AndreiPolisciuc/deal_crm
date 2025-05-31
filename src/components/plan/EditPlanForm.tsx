@@ -8,7 +8,7 @@ type PlanEditFormProps = {
     handleCloseEditSidePanel:()=>void
 }
 
-const EditForm = ({id, handleCloseEditSidePanel}:PlanEditFormProps) => {
+const EditPlanForm = ({id, handleCloseEditSidePanel}:PlanEditFormProps) => {
     const {plan, fetchPlan, updatePlan} = usePlanStore();
     const [form, setForm] = useState<PlanInputEdit>({id:0, name: '', active:true, construction_id: 0});
     const [validated, setValidated] = useState(false);
@@ -44,12 +44,12 @@ const EditForm = ({id, handleCloseEditSidePanel}:PlanEditFormProps) => {
             <Col className="mb-3 text-start ">
                 <Row className="mb-3 text-start ">
                     <Form.Group controlId="validationCustom01">
-                        <Form.Label>Company name</Form.Label>
+                        <Form.Label>Plan Name</Form.Label>
                         <Form.Control
                             name="name"
                             required
                             type="text"
-                            placeholder="Company Name"
+                            placeholder="Plan Name"
                             value={form.name}
                             onChange={handleChange}
                         />
@@ -78,4 +78,4 @@ const EditForm = ({id, handleCloseEditSidePanel}:PlanEditFormProps) => {
     );
 };
 
-export default EditForm;
+export default EditPlanForm;

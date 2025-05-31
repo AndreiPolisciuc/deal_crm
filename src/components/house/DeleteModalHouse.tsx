@@ -1,19 +1,19 @@
 import React from 'react';
-import {usePlanStore} from "../../store/usePlanStore";
+import {useHouseStore} from "../../store/useHouseStore";
 import {Button, Modal} from "react-bootstrap";
 
-type PlanDeleteModalProps = {
+type HouseDeleteModalProps = {
     id:number,
     construction_id: number,
     showDeleteModal: boolean,
     handleCloseDeleteModal:()=>void
 }
 
-const DeleteModal = ({id, construction_id, showDeleteModal, handleCloseDeleteModal}:PlanDeleteModalProps) => {
-    const { deletePlan  } = usePlanStore();
+const DeleteModalHouse = ({id, construction_id, showDeleteModal, handleCloseDeleteModal}:HouseDeleteModalProps) => {
+    const { deleteHouse  } = useHouseStore();
     const handleDelete =() =>{
         handleCloseDeleteModal();
-        deletePlan(id, construction_id);
+        deleteHouse(id, construction_id);
     }
 
     return (
@@ -21,7 +21,7 @@ const DeleteModal = ({id, construction_id, showDeleteModal, handleCloseDeleteMod
             <Modal.Header closeButton>
                 <Modal.Title>Warning</Modal.Title>
             </Modal.Header>
-            <Modal.Body>Are you sure you want to delete the plan?</Modal.Body>
+            <Modal.Body>Are you sure you want to delete the house?</Modal.Body>
             <Modal.Footer>
                 <Button variant="secondary" onClick={handleCloseDeleteModal}>
                     Cancel
@@ -34,4 +34,4 @@ const DeleteModal = ({id, construction_id, showDeleteModal, handleCloseDeleteMod
     );
 };
 
-export default DeleteModal;
+export default DeleteModalHouse;

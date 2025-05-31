@@ -45,12 +45,12 @@ const EditForm = ({id, handleCloseEditSidePanel}:EditFormProps) => {
             <Col className="mb-3 text-start ">
                 <Row className="mb-3 text-start ">
                     <Form.Group controlId="validationCustom01">
-                        <Form.Label>Type of work name*</Form.Label>
+                        <Form.Label>Type Of Work Name*</Form.Label>
                         <Form.Control
                             name="name"
                             required
                             type="text"
-                            placeholder="Company Name"
+                            placeholder="Type Of Work Name"
                             value={form.name}
                             onChange={handleChange}
                         />
