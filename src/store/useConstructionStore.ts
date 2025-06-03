@@ -1,6 +1,7 @@
 import { create } from 'zustand';
 import axios from 'axios';
 import {Construction, ConstructionInputAdd, ConstructionInputEdit} from '../types/Construction';
+import {SERVER_LINK} from "../globals";
 
 interface ConstructionState {
     constructions: Construction[];
@@ -16,7 +17,7 @@ interface ConstructionState {
 
 }
 
-const apiLinkToServer = 'http://localhost:4000/api/construction';
+const apiLinkToServer = SERVER_LINK+'/api/construction';
 
 export const useConstructionStore = create<ConstructionState>((set, get) => ({
     constructions: [],

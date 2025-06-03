@@ -1,6 +1,7 @@
 import { create } from 'zustand';
 import axios from 'axios';
 import {Plan, PlanInputAdd, PlanInputEdit} from '../types/Plan';
+import {SERVER_LINK} from "../globals";
 
 interface PlanState {
     plans: Plan[];
@@ -16,7 +17,7 @@ interface PlanState {
 
 }
 
-const apiLinkToServer = 'http://localhost:4000/api/plan';
+const apiLinkToServer = SERVER_LINK+'/api/plan';
 
 export const usePlanStore = create<PlanState>((set, get) => ({
     plans: [],

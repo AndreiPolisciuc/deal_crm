@@ -1,16 +1,16 @@
 import React, {useEffect, useState} from 'react';
-import {usePlanStore} from "../../store/usePlanStore";
 import {Button, Col, Form, Row} from "react-bootstrap";
-import {PlanInputEdit} from "../../types/Plan";
+import {useStatusStore} from "../../store/useStatusStore";
+import {StatusInputEdit} from "../../types/Status";
 
-type PlanEditFormProps = {
+type EditFormProps = {
     id:number,
     handleCloseEditSidePanel:()=>void
 }
 
-const EditForm = ({id, handleCloseEditSidePanel}:PlanEditFormProps) => {
-    const {plan, fetchPlan, updatePlan} = usePlanStore();
-    const [form, setForm] = useState<PlanInputEdit>({id:0, name: '', active:true, construction_id: 0});
+const EditForm = ({id, handleCloseEditSidePanel}:EditFormProps) => {
+    const { status, fetchStatus,  updateStatus } = useStatusStore();
+    const [form, setForm] = useState<StatusInputEdit>({id:0, name: '', active:true, sort:500, color:''});
     const [validated, setValidated] = useState(false);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -28,35 +28,59 @@ const EditForm = ({id, handleCloseEditSidePanel}:PlanEditFormProps) => {
         setValidated(true);
         if (data.checkValidity() === false) return;
 
-        await updatePlan(form);
-        setForm({id:0, name: '', active: true,  construction_id: 0 });
+        await updateStatus(form);
+        setForm({id:0, name: '', active: true , sort: 500, color:'' });
         handleCloseEditSidePanel()
     };
 
     useEffect(() => {
-        fetchPlan(id);
+        fetchStatus(id);
     }, []);
     useEffect(() => {
-        setForm({id:id, name: plan?.name, active:plan?.active, construction_id:plan?.construction_id});
-    }, [plan]);
+        setForm({id:id, name: status?.name, color: status?.color, active:status?.active, sort:status?.sort});
+    }, [status]);
     return (
         <Form noValidate validated={validated} onSubmit={handleSubmit}>
             <Col className="mb-3 text-start ">
                 <Row className="mb-3 text-start ">
                     <Form.Group controlId="validationCustom01">
-                        <Form.Label>Company name</Form.Label>
+                        <Form.Label>Status Name*</Form.Label>
                         <Form.Control
                             name="name"
                             required
                             type="text"
-                            placeholder="Company Name"
+                            placeholder="Status Name"
                             value={form.name}
                             onChange={handleChange}
                         />
                         <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
                     </Form.Group>
                 </Row>
-
+                <Row className="mb-3 text-start ">
+                    <Form.Group controlId="validationCustom01">
+                        <Form.Label>Status Color</Form.Label>
+                        <Form.Control
+                            name="color"
+                            type="color"
+                            value={form.color}
+                            onChange={handleChange}
+                        />
+                        <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+                    </Form.Group>
+                </Row>
+                <Row className="mb-3 text-start ">
+                    <Form.Group controlId="validationCustom01">
+                        <Form.Label>Sort*</Form.Label>
+                        <Form.Control
+                            name="sort"
+                            required
+                            type="number"
+                            value={form.sort}
+                            onChange={handleChange}
+                        />
+                        <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+                    </Form.Group>
+                </Row>
                 <Row className="mb-3 text-start ">
                     <Form.Group>
                         <Form.Check

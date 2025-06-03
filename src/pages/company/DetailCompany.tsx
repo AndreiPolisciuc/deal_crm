@@ -43,7 +43,7 @@ const DetailCompany = () => {
                     Edit
                 </Button>
                 <hr></hr>
-                <BreadcrumbsComp/>
+                <BreadcrumbsComp openPageName ={company.name}/>
                 {!company.active &&
                     <Alert key={'danger'} variant={'danger'}>
                         Not active!

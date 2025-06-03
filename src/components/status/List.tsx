@@ -1,28 +1,26 @@
-import React, {useEffect, useState} from 'react';
-import {usePlanStore} from "../../store/usePlanStore";
-import {Button, Table} from "react-bootstrap";
-import {Link} from "react-router-dom";
+import React, { useEffect, useState } from 'react';
+import { Button, Table } from "react-bootstrap";
+import { useStatusStore } from '../../store/useStatusStore';
 import DeleteModal from "./DeleteModal";
-import EditSidePanel from './EditSidePanel';
+import EditSidePanel from "./EditSidePanel";
 
-type PlanTableProps = {
-    construction_id: number;
-}
+const List = () => {
+    // Destructure state and action from company store
+    const { statuses, fetchStatuses } = useStatusStore();
 
-const List = ({construction_id}:PlanTableProps) => {
-    const { plans, fetchPlansInConstruction  } = usePlanStore();
+    // ID used for editing or deleting a company
     const [id, setId] = useState(0);
 
+    // Delete modal state and handlers
     const [showDeleteModal, setShowDeleteModal] = useState(false);
     const handleCloseDeleteModal = () => {
         setShowDeleteModal(false);
         setId(0);
     }
-    const handleShowDeleteModal = (id:number) => {
+    const handleShowDeleteModal = (id: number) => {
         setId(id);
         setShowDeleteModal(true);
     }
-
 
     // Edit side panel state and handlers
     const [showEditSidePanel, setShowEditSidePanel] = useState(false);
@@ -35,63 +33,61 @@ const List = ({construction_id}:PlanTableProps) => {
         setShowEditSidePanel(true);
     }
 
-
-
+    // Fetch company data on component mount
     useEffect(() => {
-        fetchPlansInConstruction(construction_id);
-    }, [construction_id]);
+        fetchStatuses();
+    }, []);
 
     return (
         <>
-
             <Table striped bordered hover>
                 <thead>
                 <tr>
                     <th>#</th>
-                    <th className="text-start" >Name</th>
-                    <th>Created at</th>
+                    <th className="text-start">Name</th>
+                    <th>Sort</th>
                     <th>Action</th>
                 </tr>
                 </thead>
                 <tbody>
-                {plans.map((plan) => (
-                    <tr className={!plan.active ? 'table-secondary text-muted' : ''} key={plan.id}>
-                        <td>{plan.id}</td>
+                {statuses.map((status) => (
+                    // Apply gray style to inactive companies
+                    <tr className={!status.active ? 'table-secondary text-muted' : ''} style={{ '--bs-table-bg': status.color } as React.CSSProperties} key={status.id}>
+                        <td>{status.id}</td>
                         <td className="text-start">
-                            <Link to={`/companies/${plan.construction_id}/${plan.id}`}>
-                                {plan.name}
-                            </Link>
+                            {status.name}
                         </td>
-
-                        <td className="w-25">{new Date(plan.created_at).toLocaleString()}</td>
+                        {/* Format the creation date */}
+                        <td className="w-25">{status.sort}</td>
                         <td>
                             {/* Edit button opens side panel */}
-                            <Button variant="secondary" className="m-1" onClick={() => handleShowEditSidePanel(plan.id)}>
+                            <Button variant="secondary" className="m-1" onClick={() => handleShowEditSidePanel(status.id)}>
                                 <i className="bi bi-pencil"></i>
                             </Button>
 
-                            <Button className={"m-1"} variant="danger" onClick={() => handleShowDeleteModal(plan.id)}>
+                            {/* Delete button opens modal */}
+                            { (status.id !== 5 && status.id !== 1) && <Button variant="danger" className="m-1" onClick={() => handleShowDeleteModal(status.id)}>
                                 <i className="bi bi-trash"></i>
-                            </Button>
-
+                            </Button>}
                         </td>
                     </tr>
                 ))}
-
                 </tbody>
             </Table>
+
+            {/* Delete confirmation modal */}
             <DeleteModal
                 id={id}
-                construction_id={construction_id}
                 showDeleteModal={showDeleteModal}
                 handleCloseDeleteModal={handleCloseDeleteModal}
             />
+
+            {/* Edit side panel */}
             <EditSidePanel
                 id={id}
                 showEditSidePanel={showEditSidePanel}
                 handleCloseEditSidePanel={handleCloseEditSidePanel}
             />
-
         </>
     );
 };

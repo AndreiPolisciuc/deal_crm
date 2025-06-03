@@ -1,21 +1,25 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
+import {usePlanStore} from "../../store/usePlanStore";
 import {Button, Col, Form, Row} from "react-bootstrap";
-import { CompanyInputEdit} from "../../types/Company";
-import {useCompanyStore} from "../../store/useCompanyStore";
+import {usePlanInformationStore} from "../../store/usePlanInformationStore";
+import {PlanInformationInputAdd} from "../../types/PlanInformation";
 
-type CompanyEditFormProps = {
-    id:number,
-    handleCloseEditSidePanel:()=>void
+type Props = {
+    handleClose:()=>void,
+    typeOfWorkId:number
 }
 
-const EditForm = ({id, handleCloseEditSidePanel}:CompanyEditFormProps) => {
-    const { company, fetchCompany, updateCompany  } = useCompanyStore();
-    const [form, setForm] = useState<CompanyInputEdit>({id:0, name: '', text: '', active:true});
+const AddInformationForm = ({handleClose, typeOfWorkId}:Props) => {
+    const plan = usePlanStore(state=> state.plan)
+    const addPlanInformation = usePlanInformationStore(state=> state.addPlanInformation)
+    const [form, setForm] = useState<PlanInformationInputAdd>({ name: '',type_of_work_id:typeOfWorkId, plan_id:plan.id, text:'', file: null, type_of_file:''});
     const [validated, setValidated] = useState(false);
+
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         setForm({ ...form, [e.target.name]: e.target.value });
     };
+
 
     const handleSubmit = async (e: React.FormEvent) => {
         const data = e.currentTarget as HTMLFormElement;
@@ -27,29 +31,30 @@ const EditForm = ({id, handleCloseEditSidePanel}:CompanyEditFormProps) => {
         }
         setValidated(true);
         if (data.checkValidity() === false) return;
-
-        await updateCompany(form);
-        setForm({id:0, name: '', text: '', active: true });
-        handleCloseEditSidePanel()
+        await addPlanInformation(form);
+        setForm({ name: '', text:'', type_of_work_id:0, plan_id:plan.id, file: null, type_of_file:'' });
+        handleClose()
     };
 
-    useEffect(() => {
-        fetchCompany(id);
-    }, []);
-    useEffect(() => {
-        setForm({id:id, name: company?.name, text: company?.text, active:company?.active});
-    }, [company]);
+
+    const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        if (e.target.files && e.target.files.length > 0) {
+            setForm({ ...form, file: e.target.files[0] });
+        }
+    };
+
+
     return (
         <Form noValidate validated={validated} onSubmit={handleSubmit}>
             <Col className="mb-3 text-start ">
                 <Row className="mb-3 text-start ">
                     <Form.Group controlId="validationCustom01">
-                        <Form.Label>Company Name</Form.Label>
+                        <Form.Label>Name*</Form.Label>
                         <Form.Control
                             name="name"
                             required
                             type="text"
-                            placeholder="Company Name"
+                            placeholder="Name"
                             value={form.name}
                             onChange={handleChange}
                         />
@@ -57,17 +62,14 @@ const EditForm = ({id, handleCloseEditSidePanel}:CompanyEditFormProps) => {
                     </Form.Group>
                 </Row>
                 <Row className="mb-3 text-start ">
-                    <Form.Group>
-                        <Form.Check
-                            checked={form.active}
-                            type="switch"
-                            id="custom-switch"
-                            label="Active"
-                            onChange={(e)=>setForm({...form, active: e.target.checked
-                            })}
+                    <Form.Group controlId="formFile" className="mb-3">
+                        <Form.Label>Default file input example</Form.Label>
+                        <Form.Control
+                            name={"file"}
+                            onChange={handleFileChange}
+                            type="file"
                         />
                     </Form.Group>
-
                 </Row>
                 <Row className="mb-3 text-start">
                     <Form.Group controlId="exampleForm.ControlTextarea1">
@@ -77,17 +79,16 @@ const EditForm = ({id, handleCloseEditSidePanel}:CompanyEditFormProps) => {
                             as="textarea"
                             rows={3}
                             name="text"
-                            value={form.text}
                             onChange={handleChange}
                         />
                     </Form.Group>
                 </Row>
 
-                <Button className={"mx-1"}  type="submit">Update</Button>
-                <Button onClick={handleCloseEditSidePanel} className={"mx-1"} variant={"danger"} >Cancel</Button>
+                <Button className={"mx-1"}  type="submit">Create</Button>
+                <Button onClick={handleClose} className={"mx-1"} variant={"danger"} >Cancel</Button>
             </Col>
         </Form>
     );
 };
 
-export default EditForm;
+export default AddInformationForm;

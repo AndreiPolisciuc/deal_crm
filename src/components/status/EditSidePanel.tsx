@@ -1,21 +1,22 @@
 import React from 'react';
 import {Offcanvas} from "react-bootstrap";
-import EditPlanForm from "./EditPlanForm";
+import EditForm from "./EditForm";
 
-type PlanEditSidePanelProps = {
+type EditSidePanelProps = {
     id:number,
     showEditSidePanel: boolean,
     handleCloseEditSidePanel:()=>void
 }
 
-const EditSidePanel = ({id, showEditSidePanel, handleCloseEditSidePanel }:PlanEditSidePanelProps) => {
+
+const EditSidePanel = ({id, showEditSidePanel, handleCloseEditSidePanel }:EditSidePanelProps) => {
     return (
         <Offcanvas show={showEditSidePanel} onHide={handleCloseEditSidePanel} placement={"end"} >
             <Offcanvas.Header closeButton>
-                <Offcanvas.Title>Edit Plan</Offcanvas.Title>
+                <Offcanvas.Title>Edit Status</Offcanvas.Title>
             </Offcanvas.Header>
             <Offcanvas.Body>
-                <EditPlanForm id={id} handleCloseEditSidePanel={handleCloseEditSidePanel} />
+                <EditForm id={id} handleCloseEditSidePanel={handleCloseEditSidePanel} />
             </Offcanvas.Body>
         </Offcanvas>
     );

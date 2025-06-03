@@ -8,7 +8,7 @@ import {
     Gear,
     House,
     People,
-    PersonLinesFill
+    PersonLinesFill, Speedometer2
 } from "react-bootstrap-icons";
 import { NavLink } from 'react-router-dom';
 
@@ -30,12 +30,12 @@ const LeftMenu = ({show, setShow}:LeftMenuProps) => {
     const handleClose = () => setShow(false);
 
     const menuItems:MenuItem[] = [
-        { label: 'Dashboard', icon: <House />, link: '/' },
-        // { label: 'Users', icon: <People />, link: '#' },
-        // { label: 'Contacts', icon: <PersonLinesFill />, link: '#' },
+        { label: 'Dashboard', icon: <Speedometer2 />, link: '/' },
+        //{ label: 'Users', icon: <People />, link: '#' },
+        { label: 'Houses', icon: <House />, link: '/houses' },
         { label: 'Companies', icon: <Building />, link: '/companies' },
         { label: 'Types of work', icon: <Briefcase />, link: '/type-of-work' },
-        // { label: 'Tasks', icon: <CheckSquare />, link: '#' },
+        { label: 'Statuses', icon: <CheckSquare />, link: '/statuses/' },
         // { label: 'Reports', icon: <BarChart />, link: '#' },
         // { label: 'Settings', icon: <Gear />, link: '#' },
     ];
@@ -43,12 +43,12 @@ const LeftMenu = ({show, setShow}:LeftMenuProps) => {
     return (
         <>
             {/* Desktop sidebar */}
-            <div className="d-none d-md-block sidebar vh-100">
+            <div className="d-none d-md-block sidebar">
                 <div className="px-3 pt-3">
                     <img className={"logo mx-1"} src={"/images/logo-1.jpg"} alt="logo"/>
                 </div>
 
-            <hr></hr>
+                <hr></hr>
                 <Nav className="flex-column">
                     {menuItems.map(({ label, icon, link }) => (
                         <NavLink
