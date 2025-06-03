@@ -1,42 +1,39 @@
 import { create } from 'zustand';
 import axios from 'axios';
-import {Status, StatusInput, StatusInputEdit} from "../types/Status";
+import {User, UserInput, UserInputEdit} from "../types/User";
 import {SERVER_LINK} from "../globals";
 
-interface StatusState {
-    statuses: Status[];
-    status:Status;
+interface UserState {
+    users: User[];
+    user:User;
     loading: boolean;
     error: string | null;
-    fetchStatuses: () => Promise<void>;
-    fetchActiveStatuses: () => Promise<void>;
-    fetchStatus: (id:number) => Promise<void>;
-    addStatus: (Status: StatusInput) => Promise<void>;
-    deleteStatus: (id: number) => Promise<void>;
-    updateStatus: (Status: StatusInputEdit) => Promise<void>;
+    fetchUsers: () => Promise<void>;
+    fetchActiveUsers: () => Promise<void>;
+    fetchUser: (id:number) => Promise<void>;
+    addUser: (User: UserInput) => Promise<void>;
+    deleteUser: (id: number) => Promise<void>;
+    updateUser: (User: UserInputEdit) => Promise<void>;
 
 }
 
-const apiLinkToServer = SERVER_LINK+'/api/status';
+const apiLinkToServer = SERVER_LINK+'/api/user';
 
-export const useStatusStore = create<StatusState>((set, get) => ({
-    statuses: [],
+export const useUserStore = create<UserState>((set, get) => ({
+    users: [],
     loading: false,
     error: null,
-    status:{
+    user:{
         id:0,
         name:'',
-        created_at:'',
-        active:true,
-        sort:500,
-        color:''
+        active:true
     },
 
-    fetchStatus: async (id) => {
+    fetchUser: async (id) => {
         set({ loading: true, error: null });
         try {
-            const res = await axios.get<Status>(apiLinkToServer+"/"+id);
-            set({ status: res.data, loading: false });
+            const res = await axios.get<User>(apiLinkToServer+"/"+id);
+            set({ user: res.data, loading: false });
         } catch (err: any) {
             set({ error: err.message, loading: false });
         }
@@ -44,51 +41,52 @@ export const useStatusStore = create<StatusState>((set, get) => ({
 
 
 
-    fetchStatuses: async () => {
+    fetchUsers: async () => {
         set({ loading: true, error: null });
         try {
-            const res = await axios.get<Status[]>(apiLinkToServer);
-            set({ statuses: res.data, loading: false });
+            const res = await axios.get<User[]>(apiLinkToServer);
+            set({ users: res.data, loading: false });
         } catch (err: any) {
             set({ error: err.message, loading: false });
         }
     },
-    fetchActiveStatuses: async () => {
+    addUser: async (User: UserInput) => {
         set({ loading: true, error: null });
         try {
-            const res = await axios.get<Status[]>(apiLinkToServer+"/active");
-            set({ statuses: res.data, loading: false });
-        } catch (err: any) {
-            set({ error: err.message, loading: false });
-        }
-    },
-
-    addStatus: async (Status: StatusInput) => {
-        set({ loading: true, error: null });
-        try {
-            await axios.post(apiLinkToServer, Status);
-            await get().fetchStatuses();
+            await axios.post(apiLinkToServer, User);
+            await get().fetchUsers();
         } catch (err: any) {
             set({ error: err.message });
         }
         set({ loading: false });
     },
-    updateStatus: async (Status: StatusInputEdit) => {
+    updateUser: async (User: UserInputEdit) => {
         set({ loading: true, error: null });
         try {
-            await axios.put(apiLinkToServer+"/"+Status.id, Status);
-            await get().fetchStatuses();
+            await axios.put(apiLinkToServer+"/"+User.id, User);
+            await get().fetchUsers();
         } catch (err: any) {
             set({ error: err.message });
         }
         set({ loading: false });
     },
 
-    deleteStatus: async (id: number) => {
+    fetchActiveUsers: async () => {
+        set({ loading: true, error: null });
+        try {
+            const res = await axios.get<User[]>(apiLinkToServer+"/active");
+            set({ users: res.data, loading: false });
+        } catch (err: any) {
+            set({ error: err.message, loading: false });
+        }
+    },
+
+
+    deleteUser: async (id: number) => {
         set({ loading: true, error: null });
         try {
             await axios.delete(`${apiLinkToServer}/${id}`);
-            await get().fetchStatuses(); // обновим список
+            await get().fetchUsers(); // обновим список
         } catch (err: any) {
             set({ error: err.message });
         }

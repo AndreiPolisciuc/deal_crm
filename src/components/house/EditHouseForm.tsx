@@ -11,7 +11,7 @@ type HouseEditFormProps = {
 
 const EditHouseForm = ({id, handleCloseEditSidePanel}:HouseEditFormProps) => {
     const {house, fetchHouse, updateHouse} = useHouseStore();
-    const [form, setForm] = useState<HouseInputEdit>({id:0, name: '', active:true, construction_id: 0, plan_id:0, state:'CA', city:'', street:'', unit:'', zip_code:''});
+    const [form, setForm] = useState<HouseInputEdit>({id:0, name: 0, active:true, construction_id: 0, plan_id:0, state:'CA', city:'', street:'', unit:'', zip_code:''});
     const {plans, fetchPlansInConstruction} = usePlanStore();
     const [validated, setValidated] = useState(false);
 
@@ -31,7 +31,7 @@ const EditHouseForm = ({id, handleCloseEditSidePanel}:HouseEditFormProps) => {
         if (data.checkValidity() === false) return;
 
         await updateHouse(form);
-        setForm({id:0, name: '', active: true,  construction_id: 0, plan_id: 0, state:'CA', city:'', street:'', unit:'', zip_code:'' });
+        setForm({id:0, name: 0, active: true,  construction_id: 0, plan_id: 0, state:'CA', city:'', street:'', unit:'', zip_code:'' });
         handleCloseEditSidePanel()
     };
 
@@ -51,7 +51,7 @@ const EditHouseForm = ({id, handleCloseEditSidePanel}:HouseEditFormProps) => {
                         <Form.Control
                             name="name"
                             required
-                            type="text"
+                            type="number"
                             placeholder="House Name"
                             value={form.name}
                             onChange={handleChange}

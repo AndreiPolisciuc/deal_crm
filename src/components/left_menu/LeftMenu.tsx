@@ -8,7 +8,7 @@ import {
     Gear,
     House,
     People,
-    PersonLinesFill
+    PersonLinesFill, Speedometer2
 } from "react-bootstrap-icons";
 import { NavLink } from 'react-router-dom';
 
@@ -30,9 +30,9 @@ const LeftMenu = ({show, setShow}:LeftMenuProps) => {
     const handleClose = () => setShow(false);
 
     const menuItems:MenuItem[] = [
-        { label: 'Dashboard', icon: <House />, link: '/' },
-        // { label: 'Users', icon: <People />, link: '#' },
-        // { label: 'Contacts', icon: <PersonLinesFill />, link: '#' },
+        { label: 'Dashboard', icon: <Speedometer2 />, link: '/' },
+        //{ label: 'Users', icon: <People />, link: '#' },
+        { label: 'Houses', icon: <House />, link: '/houses' },
         { label: 'Companies', icon: <Building />, link: '/companies' },
         { label: 'Types of work', icon: <Briefcase />, link: '/type-of-work' },
         { label: 'Statuses', icon: <CheckSquare />, link: '/statuses/' },

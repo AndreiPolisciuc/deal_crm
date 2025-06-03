@@ -2,7 +2,7 @@ export interface House {
     id: number;
     construction_id:number;
     plan_id:number;
-    name: string;
+    name: number;
     created_at:string;
     active:boolean;
     street:string;
@@ -13,7 +13,7 @@ export interface House {
 }
 
 export interface HouseInputAdd {
-    name: string;
+    name: number;
     construction_id:number;
     plan_id:number | string;
     street:string;
@@ -25,7 +25,7 @@ export interface HouseInputAdd {
 
 export interface HouseInputEdit {
     id: number;
-    name: string;
+    name: number;
     active:boolean;
     construction_id:number;
     plan_id:number;
@@ -41,4 +41,27 @@ export interface HousesStatuses{
     status_name:string;
     target_date:string;
     status_color:string;
+}
+export interface HouseFiltered{
+    id:number;
+    house_id:number;
+    house_name:number;
+    street:string | null;
+    unit:string | null;
+    city:string | null;
+    state:string | null;
+    zip_code:string | null;
+    type_of_work_name:string;
+    status_id:number;
+    status_color:string;
+    status_name:string;
+    target_date:string;
+    user_id:number | null;
+    user_name:string | null;
+    company_id: number;
+    construction_id: number;
+    plan_id:number;
+    plan_name:string;
+    construction_name:string;
+    note:string;
 }

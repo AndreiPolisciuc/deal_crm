@@ -6,6 +6,7 @@ import { usePlanStore } from "./usePlanStore";
 import { usePlanInformationStore } from "./usePlanInformationStore";
 import { useState } from "react";
 import {useHouseStore} from "./useHouseStore";
+import {useUserStore} from "./useUserStore";
 
 // Hook to combine global error and loading states from multiple stores
 export const useStore = () => {
@@ -16,6 +17,7 @@ export const useStore = () => {
     const { error: errorPlan, loading: loadingPlan } = usePlanStore();
     const { error: errorPlanInformation, loading: loadingPlanInformation } = usePlanInformationStore();
     const { error: errorHouse, loading: loadingHouse } = useHouseStore();
+    const { error: errorUser, loading: loadingUser } = useUserStore();
 
     // Local custom error that can be set manually
     const [customError, setCustomError] = useState<string | null>(null);
@@ -30,6 +32,7 @@ export const useStore = () => {
             errorPlan ||
             errorPlanInformation ||
             errorHouse ||
+            errorUser ||
             null
         );
     };
@@ -42,6 +45,7 @@ export const useStore = () => {
             loadingConstruction ||
             loadingPlan ||
             loadingHouse ||
+            loadingUser ||
             loadingPlanInformation
         );
     };

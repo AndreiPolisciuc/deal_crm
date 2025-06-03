@@ -12,7 +12,7 @@ type HouseAddFormProps = {
 const AddHouseForm = ({handleClose}:HouseAddFormProps) => {
     const construction = useConstructionStore(state=> state.construction)
     const [form, setForm] = useState<HouseInputAdd>({
-                                                                                                            name: '',
+                                                                                                            name: 0,
                                                                                                             construction_id: construction.id,
                                                                                                             plan_id: '',
                                                                                                             unit: '',
@@ -42,7 +42,7 @@ const AddHouseForm = ({handleClose}:HouseAddFormProps) => {
         if (data.checkValidity() === false) return;
 
         await addHouse(form);
-        setForm({ ...form, name:'', plan_id: '', unit: '', street: '', state:'CA', zip_code:'', city:'' });
+        setForm({ ...form, name:0, plan_id: '', unit: '', street: '', state:'CA', zip_code:'', city:'' });
         handleClose()
     };
     useEffect(() => {
@@ -58,7 +58,7 @@ const AddHouseForm = ({handleClose}:HouseAddFormProps) => {
                         <Form.Control
                             name="name"
                             required
-                            type="text"
+                            type="number"
                             placeholder="House Name"
                             value={form.name}
                             onChange={handleChange}
