@@ -45,7 +45,7 @@ const LeftMenu = ({show, setShow}:LeftMenuProps) => {
             {/* Desktop sidebar */}
             <div className="d-none d-md-block sidebar">
                 <div className="px-3 pt-3">
-                    <img className={"logo mx-1"} src={"/images/logo-1.jpg"} alt="logo"/>
+                    <img className={"logo mx-1"} src={`${process.env.PUBLIC_URL}/images/logo-1.jpg`} alt="logo"/>
                 </div>
 
                 <hr></hr>
@@ -69,7 +69,7 @@ const LeftMenu = ({show, setShow}:LeftMenuProps) => {
             <Offcanvas className="d-md-none" show={show} onHide={handleClose} responsive="md">
                 <Offcanvas.Header closeButton>
                     <div className="ps-3 pt-3">
-                        <img className={"logo ms-1"} src={"/images/logo-1.jpg"} alt="logo"/>
+                        <img className={"logo ms-1"} src={`${process.env.PUBLIC_URL}/images/logo-1.jpg`} alt="logo"/>
                     </div>
                 </Offcanvas.Header>
                 <Offcanvas.Body>

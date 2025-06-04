@@ -1,2 +1,2 @@
-export const SERVER_LINK= "http://localhost:4000";
+export const SERVER_LINK= "https://deal-server.onrender.com";
 
