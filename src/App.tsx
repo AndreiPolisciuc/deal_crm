@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import './App.css';
@@ -28,7 +28,6 @@ function App() {
         setShow(false);
         clearError()
     }
-    //const loading = loadingTypeOfWork || loadingCompany || loadingConstruction ||loadingPlan ||loadingPlanInformation;
 
     return (
         <>
@@ -42,14 +41,14 @@ function App() {
                     </Alert>}
 
                     <Routes>
-                        <Route path="/" element={<Dashboard/>}/>
-                        <Route path="/houses" element={<Houses />}/>
-                        <Route path="/companies" element={<ListCompanies/>}/>
-                        <Route path="/type-of-work" element={<TypesOfWork/>}/>
-                        <Route path="/statuses" element={<Statuses/>}/>
-                        <Route path="/companies/:id" element={<DetailCompany/>}/>
-                        <Route path="/companies/:company_id/:id" element={<DetailConstruction/>}/>
-                        <Route path="/companies/:company_id/:construction_id/:id" element={<DetailPlan />} />
+                        <Route path={`/`} element={<Dashboard/>}/>
+                        <Route path={`/houses`} element={<Houses />}/>
+                        <Route path={`/companies`} element={<ListCompanies/>}/>
+                        <Route path={`/type-of-work`} element={<TypesOfWork/>}/>
+                        <Route path={`/statuses`} element={<Statuses/>}/>
+                        <Route path={`/companies/:id`} element={<DetailCompany/>}/>
+                        <Route path={`/companies/:company_id/:id`} element={<DetailConstruction/>}/>
+                        <Route path={`/companies/:company_id/:construction_id/:id`} element={<DetailPlan />} />
                     </Routes>
                 </div>
             </div>

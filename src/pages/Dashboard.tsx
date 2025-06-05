@@ -23,7 +23,7 @@ const Dashboard = () => {
     housesFiltered.sort((a, b) => new Date(a.target_date).getTime() - new Date(b.target_date).getTime());
     const groupedByDate: Record<string, typeof housesFiltered> = {};
     for (const item of housesFiltered) {
-        const dateKey = item.target_date.slice(0, 10); // 'YYYY-MM-DD'
+        const dateKey = new Date(item.target_date).toISOString().slice(0, 10); // 'YYYY-MM-DD'
 
         if (!groupedByDate[dateKey]) {
             groupedByDate[dateKey] = [];
