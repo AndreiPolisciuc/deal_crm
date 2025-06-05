@@ -1,17 +1,17 @@
 {
   "files": {
     "main.css": "/deal_crm/static/css/main.01ff5aed.css",
-    "main.js": "/deal_crm/static/js/main.885887c8.js",
+    "main.js": "/deal_crm/static/js/main.c2868c1c.js",
     "static/js/453.4243b6e7.chunk.js": "/deal_crm/static/js/453.4243b6e7.chunk.js",
     "static/media/bootstrap-icons.woff?": "/deal_crm/static/media/bootstrap-icons.1295669cd4e305c97f2c.woff",
     "static/media/bootstrap-icons.woff2?": "/deal_crm/static/media/bootstrap-icons.92ea18a81d737146ff04.woff2",
     "index.html": "/deal_crm/index.html",
     "main.01ff5aed.css.map": "/deal_crm/static/css/main.01ff5aed.css.map",
-    "main.885887c8.js.map": "/deal_crm/static/js/main.885887c8.js.map",
+    "main.c2868c1c.js.map": "/deal_crm/static/js/main.c2868c1c.js.map",
     "453.4243b6e7.chunk.js.map": "/deal_crm/static/js/453.4243b6e7.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.01ff5aed.css",
-    "static/js/main.885887c8.js"
+    "static/js/main.c2868c1c.js"
   ]
 }
