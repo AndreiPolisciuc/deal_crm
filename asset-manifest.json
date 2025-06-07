@@ -1,15 +1,41 @@
 {
   "files": {
-    "main.css": "/deal_crm/static/css/main.01ff5aed.css",
-    "main.js": "/deal_crm/static/js/main.119e5f7b.js",
+    "main.css": "/deal_crm/static/css/main.3ee8fd95.css",
+    "main.js": "/deal_crm/static/js/main.feb361cb.js",
+    "static/js/975.732daf57.chunk.js": "/deal_crm/static/js/975.732daf57.chunk.js",
+    "static/js/275.cd83b092.chunk.js": "/deal_crm/static/js/275.cd83b092.chunk.js",
+    "static/js/868.b9ef7c00.chunk.js": "/deal_crm/static/js/868.b9ef7c00.chunk.js",
+    "static/js/875.478579a0.chunk.js": "/deal_crm/static/js/875.478579a0.chunk.js",
+    "static/js/245.23237b18.chunk.js": "/deal_crm/static/js/245.23237b18.chunk.js",
+    "static/js/161.434504a3.chunk.js": "/deal_crm/static/js/161.434504a3.chunk.js",
+    "static/js/564.9c215436.chunk.js": "/deal_crm/static/js/564.9c215436.chunk.js",
+    "static/js/538.2fa617b0.chunk.js": "/deal_crm/static/js/538.2fa617b0.chunk.js",
+    "static/js/853.146c518c.chunk.js": "/deal_crm/static/js/853.146c518c.chunk.js",
+    "static/js/314.ff50d9ac.chunk.js": "/deal_crm/static/js/314.ff50d9ac.chunk.js",
+    "static/js/809.414310fd.chunk.js": "/deal_crm/static/js/809.414310fd.chunk.js",
+    "static/js/717.2f8c0915.chunk.js": "/deal_crm/static/js/717.2f8c0915.chunk.js",
+    "static/css/688.0b633ccc.chunk.css": "/deal_crm/static/css/688.0b633ccc.chunk.css",
     "static/media/bootstrap-icons.woff?": "/deal_crm/static/media/bootstrap-icons.1295669cd4e305c97f2c.woff",
     "static/media/bootstrap-icons.woff2?": "/deal_crm/static/media/bootstrap-icons.92ea18a81d737146ff04.woff2",
     "index.html": "/deal_crm/index.html",
-    "main.01ff5aed.css.map": "/deal_crm/static/css/main.01ff5aed.css.map",
-    "main.119e5f7b.js.map": "/deal_crm/static/js/main.119e5f7b.js.map"
+    "main.3ee8fd95.css.map": "/deal_crm/static/css/main.3ee8fd95.css.map",
+    "main.feb361cb.js.map": "/deal_crm/static/js/main.feb361cb.js.map",
+    "975.732daf57.chunk.js.map": "/deal_crm/static/js/975.732daf57.chunk.js.map",
+    "275.cd83b092.chunk.js.map": "/deal_crm/static/js/275.cd83b092.chunk.js.map",
+    "868.b9ef7c00.chunk.js.map": "/deal_crm/static/js/868.b9ef7c00.chunk.js.map",
+    "875.478579a0.chunk.js.map": "/deal_crm/static/js/875.478579a0.chunk.js.map",
+    "245.23237b18.chunk.js.map": "/deal_crm/static/js/245.23237b18.chunk.js.map",
+    "161.434504a3.chunk.js.map": "/deal_crm/static/js/161.434504a3.chunk.js.map",
+    "564.9c215436.chunk.js.map": "/deal_crm/static/js/564.9c215436.chunk.js.map",
+    "538.2fa617b0.chunk.js.map": "/deal_crm/static/js/538.2fa617b0.chunk.js.map",
+    "853.146c518c.chunk.js.map": "/deal_crm/static/js/853.146c518c.chunk.js.map",
+    "314.ff50d9ac.chunk.js.map": "/deal_crm/static/js/314.ff50d9ac.chunk.js.map",
+    "809.414310fd.chunk.js.map": "/deal_crm/static/js/809.414310fd.chunk.js.map",
+    "717.2f8c0915.chunk.js.map": "/deal_crm/static/js/717.2f8c0915.chunk.js.map",
+    "688.0b633ccc.chunk.css.map": "/deal_crm/static/css/688.0b633ccc.chunk.css.map"
   },
   "entrypoints": [
-    "static/css/main.01ff5aed.css",
-    "static/js/main.119e5f7b.js"
+    "static/css/main.3ee8fd95.css",
+    "static/js/main.feb361cb.js"
   ]
 }
