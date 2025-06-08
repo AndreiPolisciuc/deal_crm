@@ -1,29 +1,30 @@
 import React, {useEffect} from 'react';
 import { Card,  Container, Form,  Table} from "react-bootstrap";
-import {useTypeOfWorkStore} from "../store/useTypeOfWorkStore";
 import {useStatusStore} from "../store/useStatusStore";
 import {useUserStore} from "../store/useUserStore";
 import {useHouseStore} from "../store/useHouseStore";
 import {useMediaQuery} from "react-responsive";
 import {Link} from "react-router-dom";
-import DatePicker from "react-datepicker";
 import NoteTextareaForm from "../components/NoteTextareaForm";
 
 const Dashboard = () => {
     // Fetch stores
-    const { typesOfWork, fetchActiveTypesOfWork } = useTypeOfWorkStore();
     const { statuses, fetchStatuses } = useStatusStore();
     const { user, fetchUser } = useUserStore();
     const {housesFiltered, fetchFilterHouses, changeStatus} = useHouseStore();
-    const today = new Date().toISOString().slice(0, 10);
+    const now = new Date();
+    const year = now.getFullYear();
+    const month = String(now.getMonth() + 1).padStart(2, '0');
+    const day = String(now.getDate()).padStart(2, '0');
 
+    const dateStr = `${year}-${month}-${day} 12:00:00`;
 
     const isMobile = useMediaQuery({ maxWidth: 767 });
 
     housesFiltered.sort((a, b) => new Date(a.target_date).getTime() - new Date(b.target_date).getTime());
     const groupedByDate: Record<string, typeof housesFiltered> = {};
     for (const item of housesFiltered) {
-        const dateKey = new Date(item.target_date).toISOString().slice(0, 10); // 'YYYY-MM-DD'
+        const dateKey = item.target_date.slice(0, 10);
 
         if (!groupedByDate[dateKey]) {
             groupedByDate[dateKey] = [];
@@ -36,7 +37,6 @@ const Dashboard = () => {
     useEffect(() => {
         fetchStatuses();
         fetchUser(2);
-        fetchActiveTypesOfWork();
         filterHouses();
     }, []);
 
@@ -47,7 +47,7 @@ const Dashboard = () => {
             '2',
             '',
             '',
-            today
+            dateStr
         );
     };
 
@@ -65,28 +65,30 @@ const Dashboard = () => {
                         <tr>
                             <th>#</th>
                             <th className="text-start">House</th>
+                            <th className="text-start">Type Of work</th>
                             <th>Status</th>
                             <th>Note</th>
                         </tr>
                         </thead>
-                        <tbody>
+                            <tbody>
                         {items.map((house) => (
                             <tr key={house.id}>
                                 <td className={"align-middle"}>{house.house_id}</td>
                                 <td className="text-start align-middle w-25">
 
-                                    <b >Lot {house.house_name}</b>
+                                    <b>Lot {house.house_name}</b>
                                     <div className={"d-block"}>
-                                        <Link className={"me-2"} to={`/companies/${house.company_id}/${house.construction_id}`}>
+                                        <Link className={"me-2"}
+                                              to={`/companies/${house.company_id}/${house.construction_id}`}>
                                             {house.construction_name}
                                         </Link>
                                         <i>
-                                            <Link to={`/companies/${house.company_id}/${house.construction_id}/${house.plan_id}`}>
+                                            <Link
+                                                to={`/companies/${house.company_id}/${house.construction_id}/${house.plan_id}`}>
                                                 ({house.plan_name})
                                             </Link>
                                         </i>
                                     </div>
-
 
 
                                     {(house.street && house.city && house.zip_code) &&
@@ -100,6 +102,9 @@ const Dashboard = () => {
                                             </a>
                                         </>}
 
+                                </td>
+                                <td className={"align-middle"}>
+                                    {house.type_of_work_name}
                                 </td>
 
                                 <td className={"align-middle"}>
@@ -127,12 +132,12 @@ const Dashboard = () => {
 
                                 </td>
                                 <td className={"align-middle text-end"}>
-                                    <NoteTextareaForm id={house.id} note={house.note}  filterHouses={filterHouses}/>
+                                    <NoteTextareaForm id={house.id} note={house.note} filterHouses={filterHouses}/>
                                 </td>
                             </tr>
                         ))}
 
-                        </tbody>
+                            </tbody>
                     </Table>
                         </div>))) : (Object.entries(groupedByDate).map(([date, items]) => (
                             <div key={date}>
@@ -141,13 +146,15 @@ const Dashboard = () => {
                                     <Card key={house.id} className="mb-2">
                                         <Card.Body>
                                             <div>
-                                                <b >Lot {house.house_name}</b>
+                                                <b>Lot {house.house_name}</b>
                                                 <div className={"d-block"}>
-                                                    <Link className={"me-2"} to={`/companies/${house.company_id}/${house.construction_id}`}>
+                                                    <Link className={"me-2"}
+                                                          to={`/companies/${house.company_id}/${house.construction_id}`}>
                                                         {house.construction_name}
                                                     </Link>
                                                     <i>
-                                                        <Link to={`/companies/${house.company_id}/${house.construction_id}/${house.plan_id}`}>
+                                                        <Link
+                                                            to={`/companies/${house.company_id}/${house.construction_id}/${house.plan_id}`}>
                                                             ({house.plan_name})
                                                         </Link>
                                                     </i>
@@ -165,13 +172,10 @@ const Dashboard = () => {
                                                 </>}
                                             <hr></hr>
                                             <div>
-                                                <span className={"d-block"}>Target Date:</span>
-                                                <DatePicker
-                                                    selected={house.target_date ? new Date(house.target_date) : null}
-                                                    disabled
-                                                    className="form-control"
-                                                />
+                                                <label className={"me-1"}>Type Of Work:</label>
+                                                {house.type_of_work_name}
                                             </div>
+
                                             <div>
                                                 <span className={"d-block"}>Status:</span>
                                                 <Form.Select
@@ -199,12 +203,14 @@ const Dashboard = () => {
 
                                             <hr></hr>
                                             <div>
-                                                <NoteTextareaForm id={house.id} note={house.note}  filterHouses={filterHouses}/>
+                                                <NoteTextareaForm id={house.id} note={house.note}
+                                                                  filterHouses={filterHouses}/>
                                             </div>
                                         </Card.Body>
                                     </Card>
                                 ))}
-                            </></div>)))
+                            </>
+                            </div>)))
             }
 
         </Container>

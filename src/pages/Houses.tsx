@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import {Button, Card, Col, Container, Form, Row, Table} from 'react-bootstrap';
+import {Accordion, Button, Card, Col, Container, Form, Row, Table} from 'react-bootstrap';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { useConstructionStore } from '../store/useConstructionStore';
@@ -11,6 +11,7 @@ import {useHouseStore} from "../store/useHouseStore";
 import {Link} from "react-router-dom";
 import NoteTextareaForm from "../components/NoteTextareaForm";
 import {useMediaQuery} from "react-responsive";
+import {format} from "date-fns-tz";
 
 type Option = {
     value: string;
@@ -34,6 +35,16 @@ const Houses = () => {
     const [houseName, setHouseName] = useState<string>('');
 
     const isMobile = useMediaQuery({ maxWidth: 767 });
+
+    function parseLocalDate(dateStr: string | null | undefined): Date | null {
+        if (!dateStr) return null;
+        const date = new Date(dateStr);
+        if (isNaN(date.getTime())) return null;
+
+        // Создаем "локальную" дату без UTC-сдвига
+        return new Date(date.getFullYear(), date.getMonth(), date.getDate(), 12, 0, 0);
+    }
+
 
     const reset = () =>{
         setSelectedConstruction(null);
@@ -82,102 +93,112 @@ const Houses = () => {
         <Container>
             <h1>Houses</h1>
             <hr />
-            <Form className="mb-4">
-                <Row className="g-3">
-                    {/* Type of Work Selector */}
-                    <Col xs={12} md={4}>
-                        <Form.Group controlId="typeOfWork">
-                            <Form.Label>Type of Work</Form.Label>
-                            <Select
-                                options={typesOfWork.map(({ id, name }) => ({
-                                    value: id.toString(),
-                                    label: name,
-                                }))}
+            <Accordion {...(!isMobile ? { defaultActiveKey: "0" } : {})}>
+                <Accordion.Item eventKey="0">
+                    <Accordion.Header>
+                        <i className="bi bi-funnel me-2"></i>
+                        Filters
+                    </Accordion.Header>
+                    <Accordion.Body>
+                        <Form className="mb-4">
+                            <Row className="g-3">
+                                {/* Type of Work Selector */}
+                                <Col xs={12} md={4}>
+                                    <Form.Group controlId="typeOfWork">
+                                        <Form.Label>Type of Work</Form.Label>
+                                        <Select
+                                            options={typesOfWork.map(({ id, name }) => ({
+                                                value: id.toString(),
+                                                label: name,
+                                            }))}
 
-                                placeholder="All"
-                                value={selectedTypeOfWork}
-                                onChange={(value) => setSelectedTypeOfWork(value)}
-                            />
-                        </Form.Group>
-                    </Col>
+                                            placeholder="All"
+                                            value={selectedTypeOfWork}
+                                            onChange={(value) => setSelectedTypeOfWork(value)}
+                                        />
+                                    </Form.Group>
+                                </Col>
 
-                    {/* Status Selector */}
-                    <Col xs={12} md={4}>
-                        <Form.Group controlId="status">
-                            <Form.Label>Status</Form.Label>
-                            <Select
-                                options={statuses.map(({ id, name }) => ({
-                                    value: id.toString(),
-                                    label: name,
-                                }))}
-                                isClearable
-                                placeholder="All"
-                                value={selectedStatus}
-                                onChange={(value) => setSelectedStatus(value)}
-                            />
-                        </Form.Group>
-                    </Col>
+                                {/* Status Selector */}
+                                <Col xs={12} md={4}>
+                                    <Form.Group controlId="status">
+                                        <Form.Label>Status</Form.Label>
+                                        <Select
+                                            options={statuses.map(({ id, name }) => ({
+                                                value: id.toString(),
+                                                label: name,
+                                            }))}
+                                            isClearable
+                                            placeholder="All"
+                                            value={selectedStatus}
+                                            onChange={(value) => setSelectedStatus(value)}
+                                        />
+                                    </Form.Group>
+                                </Col>
 
-                    {/* Performer Selector */}
-                    <Col xs={12} md={4}>
-                        <Form.Group controlId="performer">
-                            <Form.Label>Performer</Form.Label>
-                            <Select
-                                options={users.map(({ id, name }) => ({
-                                    value: id.toString(),
-                                    label: name,
-                                }))}
-                                isClearable
-                                placeholder="All"
-                                value={selectedPerformer}
-                                onChange={(value) => setSelectedPerformer(value)}
-                            />
-                        </Form.Group>
-                    </Col>
+                                {/* Performer Selector */}
+                                <Col xs={12} md={4}>
+                                    <Form.Group controlId="performer">
+                                        <Form.Label>Performer</Form.Label>
+                                        <Select
+                                            options={users.map(({ id, name }) => ({
+                                                value: id.toString(),
+                                                label: name,
+                                            }))}
+                                            isClearable
+                                            placeholder="All"
+                                            value={selectedPerformer}
+                                            onChange={(value) => setSelectedPerformer(value)}
+                                        />
+                                    </Form.Group>
+                                </Col>
 
-                    {/* Construction Selector */}
-                    <Col xs={12} md={6}>
-                        <Form.Group controlId="construction">
-                            <Form.Label>Construction</Form.Label>
-                            <Select
-                                options={constructions.map(({ id, name }) => ({
-                                    value: id.toString(),
-                                    label: name,
-                                }))}
-                                isClearable
-                                placeholder="All"
-                                value={selectedConstruction}
-                                onChange={(value) => setSelectedConstruction(value)}
-                            />
-                        </Form.Group>
-                    </Col>
+                                {/* Construction Selector */}
+                                <Col xs={12} md={6}>
+                                    <Form.Group controlId="construction">
+                                        <Form.Label>Construction</Form.Label>
+                                        <Select
+                                            options={constructions.map(({ id, name }) => ({
+                                                value: id.toString(),
+                                                label: name,
+                                            }))}
+                                            isClearable
+                                            placeholder="All"
+                                            value={selectedConstruction}
+                                            onChange={(value) => setSelectedConstruction(value)}
+                                        />
+                                    </Form.Group>
+                                </Col>
 
-                    {/* House Name Input */}
-                    <Col xs={12} md={6}>
-                        <Form.Group controlId="houseName">
-                            <Form.Label>House Name</Form.Label>
-                            <Form.Control
-                                type="text"
-                                name="houseName"
-                                placeholder="Enter house name"
-                                value={houseName}
-                                onChange={(event)=>setHouseName(event.target.value)}
-                            />
-                        </Form.Group>
-                    </Col>
+                                {/* House Name Input */}
+                                <Col xs={12} md={6}>
+                                    <Form.Group controlId="houseName">
+                                        <Form.Label>House Name</Form.Label>
+                                        <Form.Control
+                                            type="text"
+                                            name="houseName"
+                                            placeholder="Enter house name"
+                                            value={houseName}
+                                            onChange={(event)=>setHouseName(event.target.value)}
+                                        />
+                                    </Form.Group>
+                                </Col>
 
-                    {/* Action Buttons */}
-                    <Col xs={12} className="d-flex justify-content-end gap-2">
-                        <Button variant="secondary" onClick={reset}>
-                            Reset
-                        </Button>
-                        <Button onClick={filterHouses} variant="primary">
-                            Filter
-                        </Button>
-                    </Col>
-                </Row>
-            </Form>
-            <hr />
+                                {/* Action Buttons */}
+                                <Col xs={12} className="d-flex justify-content-end gap-2">
+                                    <Button variant="secondary" onClick={reset}>
+                                        Reset
+                                    </Button>
+                                    <Button onClick={filterHouses} variant="primary">
+                                        Filter
+                                    </Button>
+                                </Col>
+                            </Row>
+                        </Form>
+                    </Accordion.Body>
+                </Accordion.Item>
+            </Accordion>
+
             <h2>{housesFiltered[0]?.type_of_work_name}</h2>
 
 
@@ -227,11 +248,12 @@ const Houses = () => {
 
                         <td className={"align-middle "} style={{ width: '140px' }}>
                             <DatePicker
-                                selected={house.target_date ? new Date(house.target_date) : null}
+                                selected={parseLocalDate(house.target_date)}
                                 onChange={async (date: Date | null) => {
-                                    if (!date) return; // защита от null
-                                    const isoDate = date.toISOString().slice(0, 10); // YYYY-MM-DD
-                                    await changeDate(house.id, isoDate);
+                                    if (!date) return;
+                                    const formattedDate = format(date, 'yyyy-MM-dd HH:mm:ss');
+
+                                    await changeDate(house.id, formattedDate);
                                     filterHouses();
                                 }}
                                 className="form-control"
@@ -320,11 +342,13 @@ const Houses = () => {
                             <div>
                                 <span className={"d-block"}>Target Date:</span>
                                 <DatePicker
-                                    selected={house.target_date ? new Date(house.target_date) : null}
+                                    selected={parseLocalDate(house.target_date)}
                                     onChange={async (date: Date | null) => {
-                                        if (!date) return; // защита от null
-                                        const isoDate = date.toISOString().slice(0, 10); // YYYY-MM-DD
-                                        await changeDate(house.id, isoDate);
+                                        if (!date) return;
+
+                                        const formattedDate = format(date, 'yyyy-MM-dd HH:mm:ss');
+
+                                        await changeDate(house.id, formattedDate);
                                         filterHouses();
                                     }}
                                     className="form-control"
