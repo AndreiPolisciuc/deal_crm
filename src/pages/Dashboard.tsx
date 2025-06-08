@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react';
-import { Card,  Container, Form,  Table} from "react-bootstrap";
+import {Button, Card, Container, Form, Table} from "react-bootstrap";
 import {useStatusStore} from "../store/useStatusStore";
 import {useUserStore} from "../store/useUserStore";
 import {useHouseStore} from "../store/useHouseStore";
@@ -89,6 +89,13 @@ const Dashboard = () => {
                                             </Link>
                                         </i>
                                     </div>
+                                    {house.construction_location &&
+                                    <div className="d-block mt-2">
+                                        <Button className={"mx-1"} variant="outline-secondary" href={house.construction_location} target="_blank">
+                                            <i className="bi bi-geo-alt-fill me-2"></i>
+                                            Location
+                                        </Button>
+                                    </div>}
 
 
                                     {(house.street && house.city && house.zip_code) &&

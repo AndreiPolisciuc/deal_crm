@@ -66,7 +66,8 @@ export const useHouseStore = create<HouseState>((set, get) => ({
         plan_id:0,
         plan_name:'',
         construction_name:'',
-        note:''
+        note:'',
+        construction_location:''
     },
     housesStatuses:[],
 

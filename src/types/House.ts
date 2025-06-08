@@ -64,4 +64,5 @@ export interface HouseFiltered{
     plan_name:string;
     construction_name:string;
     note:string;
+    construction_location:string;
 }
