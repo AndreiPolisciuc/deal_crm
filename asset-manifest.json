@@ -1,11 +1,11 @@
 {
   "files": {
     "main.css": "/deal_crm/static/css/main.3ee8fd95.css",
-    "main.js": "/deal_crm/static/js/main.15f89d72.js",
+    "main.js": "/deal_crm/static/js/main.2bd16ef5.js",
     "static/js/975.9a90f471.chunk.js": "/deal_crm/static/js/975.9a90f471.chunk.js",
     "static/js/275.cd83b092.chunk.js": "/deal_crm/static/js/275.cd83b092.chunk.js",
-    "static/js/868.b3ee22b6.chunk.js": "/deal_crm/static/js/868.b3ee22b6.chunk.js",
-    "static/js/875.478579a0.chunk.js": "/deal_crm/static/js/875.478579a0.chunk.js",
+    "static/js/868.47195d0c.chunk.js": "/deal_crm/static/js/868.47195d0c.chunk.js",
+    "static/js/775.9103478c.chunk.js": "/deal_crm/static/js/775.9103478c.chunk.js",
     "static/js/245.23237b18.chunk.js": "/deal_crm/static/js/245.23237b18.chunk.js",
     "static/js/161.434504a3.chunk.js": "/deal_crm/static/js/161.434504a3.chunk.js",
     "static/js/564.9c215436.chunk.js": "/deal_crm/static/js/564.9c215436.chunk.js",
@@ -19,11 +19,11 @@
     "static/media/bootstrap-icons.woff2?": "/deal_crm/static/media/bootstrap-icons.92ea18a81d737146ff04.woff2",
     "index.html": "/deal_crm/index.html",
     "main.3ee8fd95.css.map": "/deal_crm/static/css/main.3ee8fd95.css.map",
-    "main.15f89d72.js.map": "/deal_crm/static/js/main.15f89d72.js.map",
+    "main.2bd16ef5.js.map": "/deal_crm/static/js/main.2bd16ef5.js.map",
     "975.9a90f471.chunk.js.map": "/deal_crm/static/js/975.9a90f471.chunk.js.map",
     "275.cd83b092.chunk.js.map": "/deal_crm/static/js/275.cd83b092.chunk.js.map",
-    "868.b3ee22b6.chunk.js.map": "/deal_crm/static/js/868.b3ee22b6.chunk.js.map",
-    "875.478579a0.chunk.js.map": "/deal_crm/static/js/875.478579a0.chunk.js.map",
+    "868.47195d0c.chunk.js.map": "/deal_crm/static/js/868.47195d0c.chunk.js.map",
+    "775.9103478c.chunk.js.map": "/deal_crm/static/js/775.9103478c.chunk.js.map",
     "245.23237b18.chunk.js.map": "/deal_crm/static/js/245.23237b18.chunk.js.map",
     "161.434504a3.chunk.js.map": "/deal_crm/static/js/161.434504a3.chunk.js.map",
     "564.9c215436.chunk.js.map": "/deal_crm/static/js/564.9c215436.chunk.js.map",
@@ -36,6 +36,6 @@
   },
   "entrypoints": [
     "static/css/main.3ee8fd95.css",
-    "static/js/main.15f89d72.js"
+    "static/js/main.2bd16ef5.js"
   ]
 }
